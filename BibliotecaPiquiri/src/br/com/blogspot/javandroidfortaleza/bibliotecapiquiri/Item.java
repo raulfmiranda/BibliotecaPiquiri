@@ -10,6 +10,7 @@ public class Item {
 		
 	}
 	
+	//Construtor com o mínimo de parâmetros possíveis
 	public Item(Integer quantidade, String titulo, Grupo grupo, byte[] imagem) {		
 		this.quantidade = quantidade;
 		this.titulo = titulo;
@@ -17,17 +18,19 @@ public class Item {
 		this.imagem = imagem;
 	}
 	
-	public Item(Integer id, Integer quantidade, String titulo, Grupo grupo, byte[] imagem) {		
-		this.id = id;
+	//Construtor completo sem a imagem
+	public Item(Integer ano, Integer quantidade, String titulo, String descricao, String autor, Grupo grupo) {
+		this.ano = ano;
 		this.quantidade = quantidade;
 		this.titulo = titulo;
+		this.descricao = descricao;
+		this.autor = autor;
 		this.grupo = grupo;
-		this.imagem = imagem;
 	}
 	
-	public Item(Integer id, Integer ano, Integer quantidade, String titulo, String descricao, String autor, Grupo grupo,
+	//Construtor completo
+	public Item(Integer ano, Integer quantidade, String titulo, String descricao, String autor, Grupo grupo,
 			byte[] imagem) {
-		this.id = id;
 		this.ano = ano;
 		this.quantidade = quantidade;
 		this.titulo = titulo;
@@ -38,7 +41,7 @@ public class Item {
 	}
 
 	public enum Grupo {
-		LIVRO(1), REVISTA(2), JORNAL(3), ARTIGO(4);
+		LIVRO(1), REVISTA(2), JORNAL(3), ARTIGO(4), OUTROS(5);
 		
 		private final int tipo;
 		Grupo(int tipoGrupo) {

@@ -12,8 +12,14 @@ public class Run {
 				case 1: {
 					view.cadastrar();
 				} break;
+				case 2: {
+					view.pesquisar(false);
+				} break;
+				case 3: {
+					view.pesquisar(true);
+				} break;
 				case 7: {
-					view.listar();
+					view.listar(null, false);
 				} break;
 				case 8: {
 					System.out.println("\n	Encerrando Biblioteca Piquiri...");
