@@ -79,65 +79,27 @@ public class BibliotecaView {
 		System.out.print("	Autor: ");
 		String autor = leitor.nextLine();
 		
-		Item item = new Item();
+		Item itemPesquisado = new Item();
 		
 		if(ano.isEmpty()) {
-			item.setAno(0);			
+			itemPesquisado.setAno(0);			
 		} else {
-			item.setAno(Integer.parseInt(ano));
+			itemPesquisado.setAno(Integer.parseInt(ano));
 		}
 		
-		item.setTitulo(titulo);
-		item.setAutor(autor);
+		itemPesquisado.setTitulo(titulo);
+		itemPesquisado.setAutor(autor);
 		
-		listar(item, checkAvailability);
+		imprimirLista(service.filtrar(itemPesquisado, checkAvailability));
 	}
 	
-	public void listar(Item itemPesquisado, boolean checkAvailability) {
-		ArrayList<Item> itens = BibliotecaService.itens;
-		
-		for (Item item : itens) {
-			if(checkAvailability == true && item.getQuantidade() == 0)
-				continue;
-			else if(itemPesquisado == null) {
-				imprimirItem(item);
-			} else {
-				int ano = itemPesquisado.getAno();
-				String titulo = itemPesquisado.getTitulo();
-				String autor = itemPesquisado.getAutor();
-			
-				if(ano == 0 && titulo.isEmpty() && autor.isEmpty()) {
-					imprimirItem(item);
-				} else if(ano == 0 && titulo.isEmpty()) {
-					if(item.getAutor().contains(autor))
-						imprimirItem(item);			
-				} else if(ano == 0 && autor.isEmpty()) {
-					if(item.getTitulo().contains(titulo))
-						imprimirItem(item);
-				} else if(titulo.isEmpty() && autor.isEmpty()) {
-					if(item.getAno() == ano)
-						imprimirItem(item);
-				} else {
-					if(ano == 0) {
-						if(item.getAutor().contains(autor) && item.getTitulo().contains(titulo))
-							imprimirItem(item);
-					} else if(titulo.isEmpty()) {
-						if(item.getAutor().contains(autor) && item.getAno() == ano)
-							imprimirItem(item);
-					} else if(autor.isEmpty()) {
-						if(item.getTitulo().contains(titulo) && item.getAno() == ano)
-							imprimirItem(item);
-					} else {
-						if(item.getTitulo().contains(titulo) && item.getAno() == ano 
-								&& item.getAutor().contains(autor))
-							imprimirItem(item);
-					}
-				}
-			}
-		}
+	public static void imprimirLista(ArrayList<Item> lista) {
+		for (Item item : lista) {
+			imprimirItem(item);
+		}		
 	}
 	
-	public void imprimirItem(Item item) {
+	public static void imprimirItem(Item item) {
 		System.out.println("\n	___[ Item "+item.getId()+" ]___");
 		System.out.println("	Ano: "+item.getAno());
 		System.out.println("	Quantidade: "+item.getQuantidade());

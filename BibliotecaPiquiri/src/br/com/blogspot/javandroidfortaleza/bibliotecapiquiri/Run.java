@@ -19,7 +19,7 @@ public class Run {
 					view.pesquisar(true);
 				} break;
 				case 7: {
-					view.listar(null, false);
+					BibliotecaView.imprimirLista(BibliotecaService.itens);
 				} break;
 				case 8: {
 					System.out.println("\n	Encerrando Biblioteca Piquiri...");

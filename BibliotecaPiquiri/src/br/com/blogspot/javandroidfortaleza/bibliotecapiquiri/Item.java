@@ -41,14 +41,46 @@ public class Item {
 	}
 
 	public enum Grupo {
-		LIVRO(1), REVISTA(2), JORNAL(3), ARTIGO(4), OUTROS(5);
-		
-		private final int tipo;
-		Grupo(int tipoGrupo) {
-			tipo = tipoGrupo;
+		LIVRO, REVISTA, JORNAL, ARTIGO, OUTROS;
+	}
+	
+	public boolean anoVazio() {
+		if(ano == null || ano.equals(0)) {
+			return true;
+		} else {
+			return false;
 		}
-		public int getTipo() {
-			return tipo;
+	}
+	
+	public boolean quantidadeVazia() {
+		if(quantidade == null || quantidade.equals(0)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean tituloVazio() {
+		if(titulo == null || titulo.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean descricaoVazia() {
+		if(descricao == null || descricao.isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean autorVazio() {
+		if(autor == null || autor.isEmpty()) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 
