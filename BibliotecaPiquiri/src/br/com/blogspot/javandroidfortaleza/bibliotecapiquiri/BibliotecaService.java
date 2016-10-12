@@ -48,6 +48,7 @@ public class BibliotecaService {
 		}
 	}
 	
+	//Filtra de acordo com as características do item pesquisado
 	public ArrayList<Item> filtrar(Item itemPesquisado, boolean checkAvailability) {
 		ArrayList<Item> listaFiltrada = new ArrayList<Item>();
 		

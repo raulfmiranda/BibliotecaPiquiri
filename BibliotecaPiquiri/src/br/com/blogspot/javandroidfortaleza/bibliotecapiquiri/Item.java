@@ -83,7 +83,8 @@ public class Item {
 			return false;
 		}
 	}
-
+	
+	//Início de Setters e Getters
 	public Integer getId() {
 		return id;
 	}

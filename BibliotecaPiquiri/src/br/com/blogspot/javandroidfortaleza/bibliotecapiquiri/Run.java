@@ -13,9 +13,11 @@ public class Run {
 					view.cadastrar();
 				} break;
 				case 2: {
+					//Pesquisa dentre itens disponíveis ou não
 					view.pesquisar(false);
 				} break;
 				case 3: {
+					//Pesquisa apenas itens disponíveis
 					view.pesquisar(true);
 				} break;
 				case 7: {

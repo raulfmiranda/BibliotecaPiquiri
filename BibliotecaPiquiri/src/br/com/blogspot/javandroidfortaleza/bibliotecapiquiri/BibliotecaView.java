@@ -68,6 +68,7 @@ public class BibliotecaView {
 		
 	}
 	
+	// checkAvailability: quantidade > 0 ?
 	public void pesquisar(boolean checkAvailability) {
 		System.out.println("\n	___[ Pesquisar Item ]___");
 		System.out.println("	Preencha o filtro de pesquisa abaixo.");
