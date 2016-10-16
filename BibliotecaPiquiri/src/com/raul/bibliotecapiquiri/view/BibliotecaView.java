@@ -1,9 +1,12 @@
-package br.com.blogspot.javandroidfortaleza.bibliotecapiquiri;
+package com.raul.bibliotecapiquiri.view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import br.com.blogspot.javandroidfortaleza.bibliotecapiquiri.Item.Grupo;
+import com.raul.bibliotecapiquiri.bean.Item;
+import com.raul.bibliotecapiquiri.bean.Item.Grupo;
+import com.raul.bibliotecapiquiri.exceptions.ItemIndisponivelException;
+import com.raul.bibliotecapiquiri.service.BibliotecaService;
 
 public class BibliotecaView {
 	Scanner leitor;
@@ -50,22 +53,14 @@ public class BibliotecaView {
 		System.out.print("	Escolha um dos grupos acima: ");
 		int tipo = leitor.nextInt(); leitor.nextLine();
 		
-		Item item = new Item();
-		item.setAno(ano);
-		item.setQuantidade(quantidade);
-		item.setTitulo(titulo);
-		item.setDescricao(descricao);
-		
-		if(tipo == 1) item.setGrupo(Grupo.LIVRO);
-		else if(tipo == 2) item.setGrupo(Grupo.REVISTA);
-		else if(tipo == 3) item.setGrupo(Grupo.JORNAL);
-		else if(tipo == 4) item.setGrupo(Grupo.ARTIGO);
-		else item.setGrupo(Grupo.OUTROS);
-		
-		item.setAutor(autor);
-		
-		service.adicionar(item);
-		
+		Grupo grupo;
+		if(tipo == 1)  grupo = Grupo.LIVRO;
+		else if(tipo == 2) grupo = Grupo.REVISTA;
+		else if(tipo == 3) grupo = Grupo.JORNAL;
+		else if(tipo == 4) grupo = Grupo.ARTIGO;
+		else grupo = Grupo.OUTROS;
+				
+		service.adicionar(new Item(ano, quantidade, titulo, descricao, autor, grupo));
 	}
 	
 	// checkAvailability: quantidade > 0 ?
@@ -83,15 +78,31 @@ public class BibliotecaView {
 		Item itemPesquisado = new Item();
 		
 		if(ano.isEmpty()) {
-			itemPesquisado.setAno(0);			
+			itemPesquisado.setAno(0).setTitulo(titulo).setAutor(autor);			
 		} else {
-			itemPesquisado.setAno(Integer.parseInt(ano));
+			itemPesquisado.setAno(Integer.parseInt(ano)).setTitulo(titulo).setAutor(autor);
 		}
 		
-		itemPesquisado.setTitulo(titulo);
-		itemPesquisado.setAutor(autor);
-		
 		imprimirLista(service.filtrar(itemPesquisado, checkAvailability));
+	}
+	
+	public void emprestar() throws ItemIndisponivelException {
+		System.out.println("\n	___[ Solicitação de empréstimo ]___");
+		System.out.print("	Entre com o ID do item: ");
+		int id = leitor.nextInt(); leitor.nextLine();
+		
+		if(service.existeItem(id)) {
+			int quantidade = BibliotecaService.itens.get(id).getQuantidade(); 
+			if(quantidade > 0) {
+				BibliotecaService.itens.get(id).setQuantidade(quantidade - 1);
+				System.out.println("	Item emprestado com sucesso.");
+			} else {
+				//System.out.println("	Item indisponível.");
+				throw new ItemIndisponivelException("	Item indisponível.");
+			}
+		} else {
+			System.out.println("	Item inexistente.");
+		}
 	}
 	
 	public static void imprimirLista(ArrayList<Item> lista) {

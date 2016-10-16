@@ -1,11 +1,12 @@
-package br.com.blogspot.javandroidfortaleza.bibliotecapiquiri;
+package com.raul.bibliotecapiquiri.service;
 
 import java.util.ArrayList;
 
-import br.com.blogspot.javandroidfortaleza.bibliotecapiquiri.Item.Grupo;
+import com.raul.bibliotecapiquiri.bean.Item;
+import com.raul.bibliotecapiquiri.bean.Item.Grupo;
 
 public class BibliotecaService {
-	static ArrayList<Item> itens;
+	public static ArrayList<Item> itens;
 	static Integer id;
 	
 	public BibliotecaService() {
@@ -46,6 +47,16 @@ public class BibliotecaService {
 		if (indexRemover != -1) {
 			itens.remove(indexRemover);
 		}
+	}
+	
+	public boolean existeItem(Integer id) {
+		for (int i = 0 ; i < itens.size() ; i++) {
+			if (itens.get(i).getId() == id) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	//Filtra de acordo com as características do item pesquisado

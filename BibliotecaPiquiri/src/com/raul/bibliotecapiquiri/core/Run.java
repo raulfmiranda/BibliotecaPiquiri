@@ -1,4 +1,7 @@
-package br.com.blogspot.javandroidfortaleza.bibliotecapiquiri;
+package com.raul.bibliotecapiquiri.core;
+
+import com.raul.bibliotecapiquiri.service.BibliotecaService;
+import com.raul.bibliotecapiquiri.view.BibliotecaView;
 
 public class Run {
 
@@ -19,6 +22,13 @@ public class Run {
 				case 3: {
 					//Pesquisa apenas itens disponíveis
 					view.pesquisar(true);
+				} break;
+				case 4: {
+					try {
+						view.emprestar();						
+					} catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
 				} break;
 				case 7: {
 					BibliotecaView.imprimirLista(BibliotecaService.itens);
