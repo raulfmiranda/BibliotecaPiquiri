@@ -1,5 +1,6 @@
 package com.raul.bibliotecapiquiri.core;
 
+import com.raul.bibliotecapiquiri.exceptions.Log;
 import com.raul.bibliotecapiquiri.service.BibliotecaService;
 import com.raul.bibliotecapiquiri.view.BibliotecaView;
 
@@ -13,7 +14,12 @@ public class Run {
 			opcao = view.exibirMenu();
 			switch (opcao) {
 				case 1: {
-					view.cadastrar();
+					try {
+						view.cadastrar();						
+					} catch(Exception e) {
+						System.out.println();
+						System.out.println(e.getMessage());
+					}
 				} break;
 				case 2: {
 					//Pesquisa dentre itens disponíveis ou não
@@ -30,16 +36,23 @@ public class Run {
 						System.out.println(e.getMessage());
 					}
 				} break;
+				case 5: {
+					view.devolver();
+				} break;
+				case 6: {
+					view.excluir();
+				} break;
 				case 7: {
 					BibliotecaView.imprimirLista(BibliotecaService.itens);
 				} break;
 				case 8: {
-					System.out.println("\n	Encerrando Biblioteca Piquiri...");
+					System.out.println();
+					System.out.println(Log.info("Encerrando Biblioteca Piquiri..."));
 				} break;
-				default: System.out.println("	Opção Inválida. Tente novamente.");break;
+				default: System.out.println(Log.erro("Opção Inválida. Tente novamente."));break;
 			}
 		}
-		System.out.println("\n	Obrigado e volte sempre!");
+		System.out.println(Log.info("Sistema da Biblioteca Piquiri finalizado."));
 	}
-
+	
 }

@@ -30,9 +30,10 @@ public class BibliotecaService {
 		BibliotecaService.id = id;
 	}
 
-	public void adicionar(Item item) {
+	public BibliotecaService adicionar(Item item) {
 		item.setId(id++); 
 		itens.add(item);
+		return this;
 	}
 	
 	public void remover(Integer id) {
@@ -43,7 +44,6 @@ public class BibliotecaService {
 				break;
 			}
 		}
-		
 		if (indexRemover != -1) {
 			itens.remove(indexRemover);
 		}
@@ -55,8 +55,16 @@ public class BibliotecaService {
 				return true;
 			}
 		}
-		
 		return false;
+	}
+	
+	public boolean valorNumerico(String valor) {
+		for(int i = 0; i < valor.length(); i++) {
+			if(!Character.isDigit(valor.charAt(i))) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	//Filtra de acordo com as características do item pesquisado
@@ -118,8 +126,6 @@ public class BibliotecaService {
 		Item item3 = new Item(2015, 0, "Java is pretty cool", 
 				"Livro para programadores newbies", "Tadeu Crusoé Junior", Grupo.LIVRO);
 						
-		service.adicionar(item1);
-		service.adicionar(item2);
-		service.adicionar(item3);
+		service.adicionar(item1).adicionar(item2).adicionar(item3);
 	}
 }
